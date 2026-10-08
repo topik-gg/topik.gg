@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOPIK GG — Koreys tili imtihoniga tayyorlov</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Manrope:wght@400;600;800&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+:root{--bg:#f3f5fb;--card:#fff;--ink:#141b3a;--mute:#5b6485;--line:#dde2f0;--pri:#1b2a6b;--pri-t:#fff;--acc:#d7263d;--ok:#13795b;--okbg:#e3f5ee;--badbg:#fde8ea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1226;--card:#171d3a;--ink:#eef0fa;--mute:#9aa3c7;--line:#2a3158;--pri:#8fa2ff;--pri-t:#0e1226;--acc:#ff5d70;--ok:#4cd6a4;--okbg:#10382e;--badbg:#3d1a22}}
+:root[data-theme="dark"]{--bg:#0e1226;--card:#171d3a;--ink:#eef0fa;--mute:#9aa3c7;--line:#2a3158;--pri:#8fa2ff;--pri-t:#0e1226;--acc:#ff5d70;--ok:#4cd6a4;--okbg:#10382e;--badbg:#3d1a22}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Manrope,"Noto Sans KR",system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;padding:8px 0 16px}
+.logo{font-weight:800;font-size:20px;cursor:pointer}.logo b{color:var(--acc)}
+button{font:inherit;cursor:pointer}
+.ghost{background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 12px}
+.btn{background:var(--pri);color:var(--pri-t);border:0;border-radius:10px;padding:12px 20px;font-weight:700}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.hero{padding:28px 0 8px}
+.big{font:900 clamp(88px,26vw,168px)/.95 "Noto Sans KR",sans-serif;color:var(--pri);margin:0;letter-spacing:-.04em}
+.big span{color:var(--acc)}
+h1{font-size:22px;margin:12px 0 6px}
+p{margin:6px 0;color:var(--mute)}
+.grid{display:grid;gap:12px;margin:20px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h3{margin:0 0 4px;font-size:18px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.tag{font-size:13px;color:var(--mute)}
+h2{font-size:18px;margin:28px 0 8px}
+.hist div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);width:0;transition:width .2s}
+.timer{font-weight:800;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--acc)}
+.q{font:500 20px/1.6 "Noto Sans KR",sans-serif;color:var(--ink);margin:16px 0}
+.psg{background:var(--bg);border-left:4px solid var(--pri);padding:10px 14px;border-radius:6px;font-family:"Noto Sans KR",sans-serif;margin-bottom:8px;color:var(--ink)}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;font:500 17px "Noto Sans KR",sans-serif}
+.opt.sel{border-color:var(--pri);background:var(--bg);box-shadow:inset 4px 0 0 var(--pri)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--acc);background:var(--badbg)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:16px}
+.score{font:900 64px/1 "Noto Sans KR",sans-serif;color:var(--pri)}
+.exp{font-size:14px;margin-top:6px;color:var(--mute);font-family:Manrope,sans-serif}
+.rev{border-top:1px solid var(--line);padding:14px 0}
+.hide{display:none}
+.pay{position:fixed;inset:0;z-index:9;background:var(--bg);overflow:auto;padding-top:env(safe-area-inset-top,0px)}.lock{opacity:.65}.inp{width:100%;font:500 18px "Noto Sans KR",sans-serif;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);margin-top:8px}
+.strip{display:flex;gap:8px;flex-wrap:wrap;grid-column:1/-1}.chip{border:1px solid var(--line);border-radius:20px;padding:2px 12px;font-size:13px;color:var(--mute)}.chip.on{background:var(--okbg);color:var(--ok);border-color:var(--ok)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="logo" id="logo">TOPIK <b>GG</b></div><span><button class="ghost hide" id="out">Chiqish</button> <button class="ghost" id="theme" aria-label="Mavzuni almashtirish">◐</button></span></header>
+
+<section id="auth" class="hide"><p class="big" style="font-size:96px">토픽<span>.</span></p><h1>Kirish yoki ro'yxatdan o'tish</h1><p>Ro'yxatdan o'tgan kundan boshlab 30 kun bepul.</p>
+<div class="card" style="margin-top:16px"><input class="inp" id="em" type="email" placeholder="Email" autocomplete="email"><input class="inp" id="pw" type="password" placeholder="Parol (kamida 6 belgi)" autocomplete="current-password"><div class="nav"><button class="ghost" id="signup">Ro'yxatdan o'tish</button><button class="btn" id="signin">Kirish</button></div><p id="amsg" class="tag"></p></div></section>
+<section id="home">
+<div class="strip" style="margin-top:0"><span class="chip on" id="plan"></span></div>
+<div class="hero">
+<p class="big">토픽<span>.</span></p>
+<h1>TOPIK imtihoniga bepul tayyorlaning</h1>
+<p>Mock testni yeching, ballingizni darhol ko'ring va har bir xatoning izohini o'qing.</p>
+</div>
+<div class="grid" id="tests"></div>
+<h2>Natijalar tarixi</h2>
+<div class="card hist" id="hist"><p>Hali test yechilmagan. Yuqoridagi testlardan birini boshlang.</p></div>
+<p class="tag" style="margin-top:20px">TOPIK II qulfini ochish uchun TOPIK I Reading va Listening'dan kamida 60% oling. Savollar namunaviy; ko'proq savol uchun DATA bo'limiga yozing.</p>
+</section>
+
+<section id="test" class="hide">
+<div class="row"><b id="tname"></b><span class="timer" id="timer"></span></div>
+<div class="bar" style="margin:10px 0"><i id="prog"></i></div>
+<div class="tag" id="qno"></div>
+<div id="qbox"></div>
+<div class="nav"><button class="ghost" id="prev">Orqaga</button><button class="btn" id="next">Keyingisi</button></div>
+</section>
+
+<section id="result" class="hide">
+<div class="card" style="text-align:center">
+<div class="tag" id="rname"></div>
+<div class="score" id="rscore"></div>
+<p id="rtext"></p>
+</div>
+<h2>Javoblarni ko'rib chiqish</h2>
+<div id="review"></div>
+<div class="nav"><button class="ghost" id="again">Qayta yechish</button><button class="btn" id="tohome">Bosh sahifa</button></div>
+</section>
+</div>
+
+<div id="pay" class="pay hide"><div class="wrap">
+<div class="logo" style="padding:8px 0 24px">TOPIK <b>GG</b></div>
+<p class="big" style="font-size:96px">30<span>.</span></p>
+<h1>Bepul 30 kunlik sinov muddati tugadi</h1>
+<p>Davom etish uchun obunani faollashtiring. Natijalaringiz saqlanib turibdi.</p>
+<div class="card" style="margin:16px 0"><h3 id="price"></h3><p>Barcha bo'limlar: Reading, Listening, Writing va AI tekshiruv.</p>
+<button class="btn" id="paybtn" style="margin-top:10px;width:100%">To'lov qilish</button></div>
+<p class="tag">To'lovdan keyin chekni administratorga yuboring, obuna qo'lda faollashtiriladi. Keyin sahifani yangilang.</p><button class="ghost" id="out2">Chiqish</button>
+</div></div>
+<script>
+/* ===== DATA: shu yerga savollarni qo'shing =====
+ a = to'g'ri javob indeksi (0 dan boshlanadi), e = izoh (o'zbekcha), p = matn (ixtiyoriy) */
+const TESTS=[
+{id:"t1",lvl:1,sec:"Reading",name:"TOPIK I — Reading (읽기)",desc:"1–2 daraja, grammatika va o'qish",minutes:10,q:[
+{q:"저는 한국어를 공부하는 ( )입니다.",o:["학생","학교","학원","책"],a:0,e:"'공부하는' so'zidan keyin odam nomi keladi: 학생 — talaba."},
+{q:"어제 친구를 ( ).",o:["만나요","만났어요","만날 거예요","만나고 있어요"],a:1,e:"어제 (kecha) — o'tgan zamon: -았/었어요 → 만났어요."},
+{q:"가: 이거 얼마예요?  나: ( ).",o:["오천 원이에요","두 시예요","학생이에요","한국이에요"],a:0,e:"얼마예요? — narxni so'raydi, javob ham narx bo'ladi."},
+{q:"비가 ( ) 우산을 가지고 왔어요.",o:["오니까","오지만","와도","오려고"],a:0,e:"-(으)니까 — sabab: yomg'ir yog'ayotgani uchun soyabon oldim."},
+{q:"저는 커피( ) 좋아해요.",o:["을","가","에","에서"],a:0,e:"좋아하다 fe'li bilan ob'ekt qo'shimchasi 을/를 ishlatiladi."},
+{p:"이 식당은 음식이 맛있어서 사람이 많아요.",q:"이 식당에 사람이 많은 이유는 무엇입니까?",o:["음식이 맛있어서","값이 싸서","집에서 가까워서","식당이 넓어서"],a:0,e:"Matnda '음식이 맛있어서' — taomi mazali bo'lgani uchun deyilgan."},
+{q:"숙제를 다 ( ) 놀러 갈 수 있어요.",o:["한 후에","하기 전에","하는 동안","하려고"],a:0,e:"-(으)ㄴ 후에 — 'dan keyin'. Vazifani qilgandan keyin borish mumkin."}
+]},
+{id:"t2",lvl:2,sec:"Reading",name:"TOPIK II — Reading (읽기)",desc:"3–6 daraja, ilg'or grammatika",minutes:10,q:[
+{q:"그는 시험에 합격하기 위해 밤새 공부했다.\n밑줄 친 부분과 의미가 비슷한 것은?  (합격하기 위해)",o:["합격하려고","합격해도","합격하자마자","합격하더라도"],a:0,e:"-기 위해 ≈ -(으)려고: 'maqsadda' ma'nosi."},
+{q:"열심히 노력한 ( ) 결과가 좋았다.",o:["만큼","마저","조차","밖에"],a:0,e:"-(으)ㄴ 만큼 — 'qilganicha, darajasida': mehnatiga yarasha natija."},
+{q:"그 소식을 듣고 ( ) 놀랐다.",o:["몹시","아마","전혀","결코"],a:0,e:"몹시 — juda, nihoyatda. 전혀/결코 inkor bilan, 아마 taxmin bilan keladi."},
+{p:"요즘 많은 사람들이 운동 대신 걷기를 선택한다. 걷기는 돈이 들지 않고 어디서나 할 수 있기 때문이다.",q:"사람들이 걷기를 선택하는 이유로 맞는 것은?",o:["돈이 들지 않고 어디서나 할 수 있다","다른 운동보다 더 힘들다","시간이 오래 걸린다","특별한 장비가 필요하다"],a:0,e:"Matnning ikkinchi gapida sabab aniq aytilgan."},
+{q:"그는 알면서도 모르는 ( ) 했다.",o:["척","듯","채","뿐"],a:0,e:"-(으)ㄴ/는 척하다 — o'zini ...dek ko'rsatmoq."},
+{q:"회의가 길어지는 바람에 약속에 ( ).",o:["늦었다","늦을 것이다","늦자","늦어라"],a:0,e:"-는 바람에 — salbiy natijaga sabab bo'lgan voqea; keyin o'tgan zamon keladi."}
+]},
+{id:"t1L",lvl:1,sec:"Listening",name:"TOPIK I — Listening (듣기)",desc:"Audio tinglab javob bering",minutes:8,q:[
+{s:"여자: 안녕하세요? 저는 마리예요. 남자: 안녕하세요? 저는 민수예요. 만나서 반갑습니다.",q:"남자의 이름은 무엇입니까?",o:["마리","민수","선생님","학생"],a:1,e:"Erkak 'Minsu'man' deydi."},
+{s:"저는 오늘 오후 세 시에 친구를 만나요. 그리고 저녁에는 영화를 볼 거예요.",q:"저녁에 무엇을 합니까?",o:["친구를 만납니다","영화를 봅니다","공부합니다","운동합니다"],a:1,e:"'저녁에는 영화를 볼 거예요' — kechqurun kino ko'radi."},
+{s:"이 사과는 한 개에 천오백 원이에요. 세 개 주세요.",q:"사과 한 개는 얼마입니까?",o:["오백 원","천 원","천오백 원","삼천 원"],a:2,e:"천오백 = 1500 von (한 개에 — bittasiga)."},
+{s:"내일은 비가 오고 많이 추워요. 따뜻한 옷을 입으세요.",q:"내일 날씨는 어떻습니까?",o:["맑고 덥습니다","비가 오고 춥습니다","눈이 옵니다","바람이 붑니다"],a:1,e:"비가 오다 — yomg'ir yog'adi, 춥다 — sovuq."},
+{s:"실례합니다. 우체국이 어디에 있어요? 저 은행 옆에 있어요.",q:"우체국은 어디에 있습니까?",o:["은행 앞","은행 옆","학교 옆","시장 뒤"],a:1,e:"옆 — yonida."}
+]},
+{id:"t2L",lvl:2,sec:"Listening",name:"TOPIK II — Listening (듣기)",desc:"Murakkab audio matnlar",minutes:8,q:[
+{s:"요즘 저는 아침마다 한 시간씩 걷기 운동을 해요. 처음에는 힘들었지만 지금은 몸이 가벼워지고 기분도 좋아졌어요.",q:"이 사람에 대해 맞는 것은?",o:["아침에 걷기 운동을 한다","운동이 아직도 힘들다","저녁에 운동한다","운동을 그만두었다"],a:0,e:"'아침마다 ... 걷기 운동을 해요' — har ertalab yuradi. -지만 qarama-qarshilik: avval qiyin edi, endi yengil."},
+{s:"도서관 이용 시간이 다음 달부터 바뀝니다. 평일에는 밤 열 시까지, 주말에는 오후 여섯 시까지 문을 엽니다.",q:"주말에 도서관은 언제까지 엽니까?",o:["오후 여섯 시","밤 열 시","오후 네 시","낮 열두 시"],a:0,e:"주말 (dam olish kunlari) — 오후 여섯 시까지."},
+{s:"가: 회의 자료는 다 준비했어요? 나: 거의 끝났는데, 그래프만 고치면 돼요. 오후 두 시까지는 보낼게요.",q:"대답한 사람이 앞으로 할 일은?",o:["그래프를 고쳐서 자료를 보낸다","회의에 참석하지 않는다","새 자료를 처음부터 만든다","회의 시간을 바꾼다"],a:0,e:"'그래프만 고치면 ... 보낼게요' — grafikni tuzatib yuboradi."},
+{s:"최근 대중교통을 이용하는 사람이 늘고 있습니다. 기름값이 올랐고 환경을 생각하는 사람이 많아졌기 때문입니다.",q:"대중교통 이용자가 늘어난 이유로 알맞은 것은?",o:["기름값이 올라서","주차장이 많아져서","버스가 빨라져서","운전이 어려워서"],a:0,e:"'기름값이 올랐고' — benzin narxi oshgani."}
+]},
+{id:"t2W",lvl:2,sec:"Writing",name:"TOPIK II — Writing (쓰기)",desc:"Gap to'ldirish va insho (o'zingiz yozasiz)",minutes:15,q:[
+{t:"text",q:"( ㉠ )에 들어갈 말을 쓰십시오.\n저는 내일 시험이 있어서 오늘 도서관에서 ( ㉠ ).",acc:["공부할 거예요","공부할 겁니다","공부할 것입니다","공부하려고 해요","공부하려고 합니다","공부할 거예"],e:"Ertaga imtihon bo'lgani uchun bugun kutubxonada 'o'qimoqchiman' — reja shakli: -(으)ㄹ 거예요."},
+{t:"text",q:"( ㉠ )에 들어갈 말을 쓰십시오.\n하루 종일 비가 ( ㉠ ) 소풍을 취소했습니다.",acc:["와서","내려서","오는 바람에","내리는 바람에","왔기 때문에","내렸기 때문에"],e:"Sabab ifodalash: -아/어서 yoki -는 바람에 (yomg'ir yog'ib, sayohatni bekor qildik)."},
+{t:"essay",q:"여러분이 한국어를 공부하는 이유를 쓰십시오. (150~300자)\n'때문, 또한, 그래서, 따라서, 하지만' 같은 연결어를 사용하십시오.",min:150,max:300,keys:["때문","또한","그래서","따라서","하지만"],model:"제가 한국어를 공부하는 이유는 한국 대학교에 다니고 싶기 때문입니다. 한국은 교육 수준이 높고 배울 수 있는 분야가 다양합니다. 또한 한국 드라마와 노래를 좋아해서 자막 없이 이해하고 싶습니다. 그래서 매일 두 시간씩 단어를 외우고 문법을 공부합니다. 따라서 앞으로 TOPIK 5급을 받는 것이 목표입니다. 한국어를 잘하게 되면 한국 친구도 많이 사귀고 싶습니다.",e:"Insho mezonlari: yetarli uzunlik, bog'lovchilar, mantiqiy tuzilma (sabab → misol → reja). Namuna bilan solishtiring va farqini o'zingiz yozib chiqing."}
+]}];
+
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const SB_URL="https://fzjubjbcrybrewtkxawm.supabase.co",SB_KEY="sb_publishable_CsP2HCt53U4535qEYulCvA_jKAemiGx";
+const PAY_URL="https://t.me/SIZNING_USERNAME",PRICE="Oylik obuna: 49 000 so'm",TRIAL=30;
+const sb=supabase.createClient(SB_URL,SB_KEY);
+let PROF=null,RES=[];
+const passed=()=>{const P={};RES.forEach(r=>{if(r.score/r.total>=.6)P[r.test_id]=true});return P};
+const nm=id=>(TESTS.find(t=>t.id===id)||{}).name||id;
+function access(){if(!PROF)return{ok:false};if(PROF.sub_until&&new Date(PROF.sub_until)>new Date())return{ok:true,label:"Obuna faol"};
+ const d=TRIAL-Math.floor((Date.now()-new Date(PROF.trial_start))/864e5);return d>0?{ok:true,label:`Bepul sinov: ${d} kun qoldi`}:{ok:false}}
+function guard(){const a=access();$("pay").classList.toggle("hide",a.ok);if(!a.ok){clearInterval(tick);show("none");$("price").textContent=PRICE}return a.ok}
+async function load(){const {data:{session}}=await sb.auth.getSession();
+ $("out").classList.toggle("hide",!session);
+ if(!session){$("pay").classList.add("hide");show("auth");return}
+ const {data:p}=await sb.from("profiles").select("*").single();PROF=p;
+ const {data:r}=await sb.from("results").select("*").order("created_at",{ascending:false});RES=r||[];home()}
+async function auth(kind){const email=$("em").value.trim(),password=$("pw").value;$("amsg").textContent="...";
+ const {data,error}=await(kind==="up"?sb.auth.signUp({email,password}):sb.auth.signInWithPassword({email,password}));
+ if(error){$("amsg").textContent=error.message;return}
+ if(!data.session){$("amsg").textContent="Pochtangizga tasdiqlash xati yuborildi.";return}
+ $("amsg").textContent="";load()}
+$("signin").onclick=()=>auth("in");$("signup").onclick=()=>auth("up");
+$("out").onclick=async()=>{await sb.auth.signOut();PROF=null;RES=[];load()};
+$("out2").onclick=$("out").onclick;
+$("paybtn").onclick=()=>window.open(PAY_URL,"_blank");
+let cur=null,ans=[],idx=0,left=0,tick=null,plays=[];
+const len=s=>s.replace(/\n/g,"").length,hits=(q,a)=>q.keys.filter(k=>a.includes(k)).length,norm=s=>s.replace(/[\s.]/g,"");
+const isOk=(q,a)=>{if(a==null)return false;if(q.t==="text")return q.acc.some(x=>norm(x)===norm(a));if(q.t==="essay")return len(a)>=q.min&&hits(q,a)>=Math.ceil(q.keys.length/2);return a===q.a};
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ko-KR";u.rate=.85;const v=speechSynthesis.getVoices().find(v=>v.lang.startsWith("ko"));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){alert("Brauzeringiz ovozni qo'llamaydi.")}}
+
+function show(v){["auth","home","test","result"].forEach(x=>$(x).classList.toggle("hide",x!==v));window.scrollTo(0,0)}
+function home(){clearInterval(tick);if(!PROF)return load();if(!guard())return;show("home");$("plan").textContent=access().label;
+ const P=passed(),open2=!!(P.t1&&P.t1L);
+ $("tests").innerHTML=`<div class="strip">`+TESTS.filter(t=>t.lvl===1).map(t=>`<span class="chip ${P[t.id]?"on":""}">TOPIK I ${t.sec} ${P[t.id]?"✓":"—"}</span>`).join("")+`<span class="chip ${open2?"on":""}">TOPIK II ${open2?"ochiq":"qulfda"}</span></div>`+TESTS.map(t=>{const lock=t.lvl===2&&!open2;return `<div class="card ${lock?"lock":""}"><h3>${t.name}</h3><p>${lock?"Qulfda: avval TOPIK I Reading va Listening'dan kamida 60% oling.":t.desc}</p><div class="row" style="margin-top:12px"><span class="tag">${t.q.length} savol · ${t.minutes} daqiqa</span><button class="btn" data-id="${t.id}" ${lock?"disabled":""}>${lock?"Qulfda":P[t.id]?"Qayta yechish":"Boshlash"}</button></div></div>`}).join("");
+ document.querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>start(b.dataset.id));
+ if(RES.length)$("hist").innerHTML=RES.slice(0,8).map(r=>`<div><span>${nm(r.test_id)}<br><span class="tag">${new Date(r.created_at).toLocaleString("uz-UZ")}</span></span><b>${r.score}/${r.total}</b></div>`).join("");
+}
+function start(id){if(!guard())return;cur=TESTS.find(t=>t.id===id);ans=Array(cur.q.length).fill(null);plays=[];idx=0;left=cur.minutes*60;
+ $("tname").textContent=cur.name;show("test");render();clearInterval(tick);
+ tick=setInterval(()=>{left--;clock();if(left<=0)finish()},1000);clock();}
+function clock(){const m=Math.floor(left/60),s=left%60;const t=$("timer");t.textContent=`${m}:${String(s).padStart(2,"0")}`;t.classList.toggle("low",left<60)}
+function render(){const q=cur.q[idx];
+ $("qno").textContent=`Savol ${idx+1} / ${cur.q.length}`;
+ $("prog").style.width=((idx+1)/cur.q.length*100)+"%";
+ let h=(q.s?`<button class="ghost" id="play" style="margin-top:12px">▶ Tinglash (${plays[idx]||0}/2)</button><div class="tag">Audio 2 marta o'qiladi (qurilmangizdagi koreys ovozi bilan).</div>`:"")+(q.p?`<div class="psg">${q.p}</div>`:"")+`<div class="q">${q.q.replace(/\n/g,"<br>")}</div>`;
+ if(q.t==="text")h+=`<input class="inp" id="ti" autocomplete="off" placeholder="Koreyscha yozing" value="${ans[idx]||""}">`;
+ else if(q.t==="essay")h+=`<textarea class="inp" id="ta" rows="9" placeholder="Shu yerga yozing...">${ans[idx]||""}</textarea><div class="tag" id="cnt"></div>`;
+ else h+=q.o.map((o,i)=>`<button class="opt ${ans[idx]===i?"sel":""}" data-i="${i}">${i+1}. ${o}</button>`).join("");
+ $("qbox").innerHTML=h;
+ if(q.t==="text")$("ti").oninput=e=>{ans[idx]=e.target.value.trim()||null};
+ else if(q.t==="essay"){const c=()=>{$("cnt").textContent=`${len(ans[idx]||"")} / ${q.min}–${q.max} belgi`};c();$("ta").oninput=e=>{ans[idx]=e.target.value.trim()?e.target.value:null;c()}}
+ else document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ans[idx]=+b.dataset.i;render()});
+ if(q.s)$("play").onclick=()=>{if((plays[idx]||0)>=2)return alert("Audio 2 marta qo'yildi.");plays[idx]=(plays[idx]||0)+1;say(q.s);render()};
+ $("prev").style.visibility=idx?"visible":"hidden";
+ $("next").textContent=idx===cur.q.length-1?"Yakunlash":"Keyingisi";
+}
+$("prev").onclick=()=>{idx--;render()};
+$("next").onclick=()=>{if(idx<cur.q.length-1){idx++;render()}else{const un=ans.filter(a=>a===null).length;if(!un||confirm(un+" ta savol javobsiz. Baribir yakunlaysizmi?"))finish()}};
+function finish(){clearInterval(tick);
+ const sc=cur.q.reduce((s,q,i)=>s+(isOk(q,ans[i])?1:0),0),n=cur.q.length,pct=sc/n;speechSynthesis&&speechSynthesis.cancel();const P=passed();if(pct>=.6)P[cur.id]=true;
+ sb.from("results").insert({test_id:cur.id,score:sc,total:n}).select().then(({data})=>{if(data)RES.unshift(data[0])});
+ $("rname").textContent=cur.name;$("rscore").textContent=`${sc}/${n}`;
+ $("rtext").textContent=pct>=.8?"Ajoyib natija! Davom eting.":pct>=.5?"Yaxshi. Xatolarni ko'rib chiqing.":"Hali ko'p ish bor. Izohlarni o'qing va qayta urinib ko'ring.";
+ if(cur.lvl===1)$("rtext").textContent+=pct<.6?" Bu bo'limdan o'tish uchun kamida 60% kerak.":(P.t1&&P.t1L?" TOPIK II ochildi!":" O'tdingiz! TOPIK I'ning ikkinchi bo'limini ham topshiring.");
+ $("review").innerHTML=cur.q.map((q,i)=>{const a=ans[i],ok=isOk(q,a);
+  let b=(q.s?`<div class="psg">🔊 ${q.s}</div>`:"")+(q.p?`<div class="psg">${q.p}</div>`:"")+`<div class="q" style="font-size:17px">${q.q.replace(/\n/g,"<br>")}</div>`;
+  if(q.t==="text")b+=`<div class="opt ${ok?"ok":"bad"}" style="font-size:15px">Sizning javobingiz: ${a||"—"}</div><div class="exp">To'g'ri variantlar: ${q.acc.slice(0,3).join(", ")}</div>`;
+  else if(q.t==="essay")b+=`<div class="psg">${a||"—"}</div><div class="exp">Uzunlik: ${len(a||"")} belgi (kerak: ${q.min}–${q.max}). Bog'lovchilar: ${hits(q,a||"")}/${q.keys.length} (${q.keys.join(", ")}).</div><div class="exp"><b>Namuna javob:</b> ${q.model}</div>${a?`<button class="ghost aicheck" data-i="${i}" style="margin-top:8px">Claude bilan tekshirish</button><div class="exp" id="ai${i}" style="white-space:pre-wrap"></div>`:""}`;
+  else b+=q.o.map((o,j)=>`<div class="opt ${j===q.a?"ok":j===a?"bad":""}" style="margin:4px 0;font-size:15px">${o}</div>`).join("");
+  return `<div class="rev"><div class="tag">${i+1}-savol · ${ok?"To'g'ri":"Noto'g'ri"}</div>${b}<div class="exp">${a==null?"Javob berilmagan. ":""}${q.e}</div></div>`}).join("");
+ document.querySelectorAll(".aicheck").forEach(b=>b.onclick=async()=>{const i=+b.dataset.i,q=cur.q[i],o=$("ai"+i);
+  try{b.disabled=true;o.textContent="Tekshirilmoqda...";const {data,error}=await sb.functions.invoke("check-essay",{body:{task:q.q,essay:ans[i]}});if(error)throw error;o.textContent=data.text}catch(e){o.textContent="Xatolik: "+(e.message||e.code||"");b.disabled=false}});
+ show("result");}
+$("again").onclick=()=>start(cur.id);$("tohome").onclick=home;$("logo").onclick=home;
+$("theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#0e1226";r.dataset.theme=d?"light":"dark"};
+load();
+</script>
+</body>
+  </html>
