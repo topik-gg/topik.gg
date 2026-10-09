@@ -264,6 +264,13 @@ TESTS.push({id:"m1L",lvl:0,sec:"Mock",name:"TOPIK I — To'liq mock: Listening (
 {s:"저는 한국 영화를 자주 봐요. 처음에는 자막을 보면서 봤지만 지금은 자막 없이도 이해할 수 있어요.",q:"이 사람에 대해 맞는 것은?",o:["영화를 좋아하지 않습니다","자막이 꼭 필요합니다","자막 없이도 이해할 수 있습니다","한국에 살고 있습니다"],a:2,e:"자막 없이도 이해할 수 있어요."},
 {s:"가: 이 약은 하루에 몇 번 먹어요? 나: 하루에 세 번, 식사 후에 드세요.",q:"약은 언제 먹습니까?",o:["식사 전에 하루 두 번","식사 후에 하루 세 번","자기 전에 한 번","아침에만 한 번"],a:1,e:"하루에 세 번, 식사 후에 — kuniga 3 marta, ovqatdan keyin."}
 ];
+ (()=>{
+ [ "t1","t1L" ].forEach(id=>{const i=TESTS.findIndex(t=>t.id===id);if(i>-1)TESTS.splice(i,1)});
+ const L=TESTS.find(t=>t.id==="m1L"),R=TESTS.find(t=>t.id==="m1R");
+ if(L)Object.assign(L,{id:"t1L",lvl:1,sec:"Listening",name:"TOPIK I — Listening (듣기)"});
+ if(R)Object.assign(R,{id:"t1",lvl:1,sec:"Reading",name:"TOPIK I — Reading (읽기)"});
+ TESTS.sort((a,b)=>a.lvl-b.lvl);
+})();
 </script>
 </body>
 </html>
