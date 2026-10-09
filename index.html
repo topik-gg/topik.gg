@@ -218,6 +218,19 @@ function finish(){clearInterval(tick);
 $("again").onclick=()=>start(cur.id);$("tohome").onclick=home;$("logo").onclick=home;
 $("theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#0e1226";r.dataset.theme=d?"light":"dark"};
 load();
+ 
+TESTS.push({id:"m1L",lvl:0,sec:"Mock",name:"TOPIK I — To'liq mock: Listening (듣기)",desc:"Haqiqiy format: 30 savol, 40 daqiqa",minutes:40,q:[
+{s:"처음 뵙겠습니다. 저는 김민수입니다.",q:"알맞은 대답을 고르십시오.",o:["네, 괜찮습니다","만나서 반갑습니다","잘 먹겠습니다","다음에 만나요"],a:1,e:"Tanishuv: 처음 뵙겠습니다 → 만나서 반갑습니다 (tanishganimdan xursandman)."},
+{s:"감사합니다. 선물이 정말 마음에 들어요.",q:"알맞은 대답을 고르십시오.",o:["천만에요","죄송합니다","안녕히 계세요","처음 뵙겠습니다"],a:0,e:"감사합니다 (rahmat) → 천만에요 (arzimaydi)."},
+{s:"내일 같이 영화 볼까요?",q:"알맞은 대답을 고르십시오.",o:["네, 좋아요","아니요, 영화예요","네, 영화가 있어요","아니요, 내일이에요"],a:0,e:"-(으)ㄹ까요? — taklif. Rozilik: 네, 좋아요."},
+{s:"실례합니다. 여기에 앉아도 돼요?",q:"알맞은 대답을 고르십시오.",o:["네, 앉으세요","네, 앉았어요","아니요, 앉고 싶어요","아니요, 앉을 거예요"],a:0,e:"-아/어도 돼요? — ruxsat so'rash. Javob: 네, 앉으세요."},
+{s:"가: 서울역에 어떻게 가요? 나: 저기에서 지하철 2호선을 타세요.",q:"무엇을 타야 합니까?",o:["버스","택시","기차","지하철"],a:3,e:"지하철 2호선 — metro 2-liniya."},
+{s:"가: 어서 오세요. 뭘 드릴까요? 나: 커피 한 잔 주세요. 따뜻한 걸로요.",q:"두 사람은 어디에 있습니까?",o:["카페","병원","학교","은행"],a:0,e:"커피 한 잔 주세요 — kafe."},
+{s:"가: 어디가 아프세요? 나: 어제부터 머리가 아프고 열도 나요.",q:"두 사람은 어디에 있습니까?",o:["도서관","시장","병원","공항"],a:2,e:"어디가 아프세요? — shifokor so'raydi: kasalxona."},
+{s:"가: 이 책을 일주일 동안 빌릴 수 있어요? 나: 네, 다음 주 금요일까지 돌려주세요.",q:"두 사람은 어디에 있습니까?",o:["서점","도서관","우체국","식당"],a:1,e:"빌리다 va 돌려주다 — kutubxona."},
+{s:"저는 주말마다 친구들과 축구를 해요. 축구를 하면 기분이 좋아져요.",q:"이 사람은 주말에 무엇을 합니까?",o:["공부를 합니다","쇼핑을 합니다","축구를 합니다","영화를 봅니다"],a:2,e:"주말마다 축구를 해요 — har dam olish kuni futbol o'ynaydi."},
+{s:"가: 생일이 언제예요? 나: 시월 이십오 일이에요.",q:"나의 생일은 언제입니까?",o:["10월 5일","10월 25일","12월 5일","12월 25일"],a:1,e:"시월 = oktabr, 이십오 일 = 25-kun."}
+]});
 </script>
 </body>
-  </html>
+</html>
