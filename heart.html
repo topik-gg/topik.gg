@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nurli yurak</title>
+<style>
+html,body{height:100%;margin:0;background:#000}
+body{display:flex;flex-direction:column}
+canvas{flex:1;width:100%;min-height:0;display:block}
+.bar{display:flex;justify-content:center;padding:12px}
+button{background:#f22619;color:#1a0508;border:0;border-radius:10px;padding:12px 22px;font:700 16px system-ui,sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="bar"><button id="b">Qayta chizish</button></div>
+<script>
+const cv=document.getElementById("c"),cx=cv.getContext("2d");
+const N=140,K=2.1,STEPS=14,BRIGHT=[.95,.15,.1],DARK=[.03,0,0];
+let raf;
+const heart=t=>[16*Math.pow(Math.sin(t),3),13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t)];
+function run(){
+  cancelAnimationFrame(raf);
+  const d=devicePixelRatio||1,r=cv.getBoundingClientRect(),W=r.width,H=r.height;
+  cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);
+  cx.fillStyle="#000";cx.fillRect(0,0,W,H);
+  cx.lineWidth=1.3;cx.lineCap="round";
+  const sc=Math.min(W/72,H/66),X=x=>W/2+x*sc,Y=y=>H/2-(y+5.5)*sc;
+  let i=0;
+  const ray=n=>{
+    const [hx,hy]=heart(2*Math.PI*n/N),ex=hx*K,ey=hy*K;
+    let px=hx,py=hy;
+    for(let j=0;j<STEPS;j++){
+      const f=(j+1)/STEPS,c=BRIGHT.map((b,k)=>Math.round(255*(b+(DARK[k]-b)*f)));
+      const nx=hx+(ex-hx)*f,ny=hy+(ey-hy)*f;
+      cx.strokeStyle=`rgb(${c})`;cx.beginPath();cx.moveTo(X(px),Y(py));cx.lineTo(X(nx),Y(ny));cx.stroke();
+      px=nx;py=ny;
+    }
+  };
+  const frame=()=>{
+    for(let k=0;k<2&&i<N;k++)ray(i++);
+    if(i<N)raf=requestAnimationFrame(frame);
+  };
+  frame();
+}
+document.getElementById("b").onclick=run;
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(run,250)});
+run();
+</script>
+</body>
+</html>
