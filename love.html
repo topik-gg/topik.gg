@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sevgi yuragi</title>
+<style>
+:root{--bg:#0b0608;--ink:#ffe9ea;--red:#ff2a3d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:16px system-ui,sans-serif}
+body{display:flex;flex-direction:column}
+canvas{flex:1;width:100%;min-height:0;display:block}
+form{display:flex;gap:8px;padding:12px}
+input{flex:1;min-width:0;background:#1a0d10;color:var(--ink);border:1px solid #4a1d25;border-radius:10px;padding:12px;font:inherit}
+button{background:var(--red);color:#1a0508;border:0;border-radius:10px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #ffb3b8;outline-offset:2px}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Turli tillarda 'seni sevaman' so'zlaridan yasalgan yurak"></canvas>
+<form id="f"><input id="n" placeholder="Ism yozing (ixtiyoriy)" maxlength="24" autocomplete="off"><button>Qayta chizish</button></form>
+<script>
+const P=["Seni sevaman","I love you","Seni seviyorum","Te amo","Je t'aime","Ich liebe dich","Ti amo","Eu te amo","사랑해","愛してる","我爱你","Я тебя люблю","Te quiero","Aku cinta kamu","Anh yêu em","Kocham cię","Ik hou van jou","Jag älskar dig","Σ' αγαπώ","Rakastan sinua","Jeg elsker deg","Szeretlek","Miluji tě","Te iubesc","Я тебе кохаю"];
+const COL=["#ff2a3d","#ff5a5f","#ff8a8f","#ffb3b8","#e01b30"];
+const FONT='"Noto Sans KR","Noto Sans JP","Noto Sans SC",system-ui,sans-serif';
+const cv=document.getElementById("c"),cx=cv.getContext("2d");
+const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let W,H,timer;
+function fit(){const d=devicePixelRatio||1,r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+function heart(t){return[16*Math.pow(Math.sin(t),3),-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))]}
+function draw(name){
+  clearTimeout(timer);fit();cx.clearRect(0,0,W,H);
+  const sc=Math.min(W/36,H/34),ox=W/2,oy=H/2-sc*.6;
+  const total=Math.round(Math.min(W*H/1400,420)),boxes=[],items=[];
+  for(let n=0,tries=0;items.length<total&&tries<total*40;tries++){
+    const t=Math.random()*6.2832,k=Math.random()<.6?.88+Math.random()*.12:.12+Math.random()*.75;
+    const [hx,hy]=heart(t),x=ox+hx*sc*k,y=oy+hy*sc*k;
+    const s=Math.max(10,Math.round(sc*(.55+Math.random()*.6)));
+    const text=(name&&!items.length)?"Seni sevaman, "+name:P[Math.floor(Math.random()*P.length)];
+    cx.font=`700 ${s}px ${FONT}`;
+    const w=cx.measureText(text).width,b={l:x-w/2-2,r:x+w/2+2,t:y-s/2-1,b:y+s/2+1};
+    if(boxes.some(o=>b.l<o.r&&b.r>o.l&&b.t<o.b&&b.b>o.t))continue;
+    boxes.push(b);items.push({text,x,y,s,c:COL[Math.floor(Math.random()*COL.length)]});
+  }
+  let i=0;
+  const step=()=>{
+    const batch=still?items.length:2;
+    for(let j=0;j<batch&&i<items.length;j++,i++){
+      const it=items[i];cx.font=`700 ${it.s}px ${FONT}`;cx.fillStyle=it.c;
+      cx.textAlign="center";cx.textBaseline="middle";cx.fillText(it.text,it.x,it.y);
+    }
+    if(i<items.length)timer=setTimeout(step,22);
+  };
+  step();
+}
+const inp=document.getElementById("n");
+document.getElementById("f").onsubmit=e=>{e.preventDefault();draw(inp.value.trim())};
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>draw(inp.value.trim()),250)});
+draw("");
+</script>
+</body>
+</html>
